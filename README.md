@@ -29,7 +29,7 @@ pip3 install -r requirements.txt
 ```
 
 #### 首先建立数据库表
-python run.py  CreateTable.py
+python CreateTable.py
 
 #user='root', passwd='toor', db='spiders'
  注意此处的数据库、用户名和密码
