@@ -29,11 +29,6 @@ class Crawler(object, metaclass=ProxyMetaclass):
         return proxies
        
     def crawl_daili66(self, page_count=34):
-        """
-        获取代理66
-        :param page_count: 页码
-        :return: 代理
-        """
         proxy=[]
         start_url = "http://www.66ip.cn/areaindex_{}/1.html"
         urls = [start_url.format(page) for page in range(1, page_count + 1)]
@@ -50,22 +45,6 @@ class Crawler(object, metaclass=ProxyMetaclass):
                     proxy.append([IP,PORT,TYPE])
         return proxy
 
-    def crawl_ip3366(self):
-        proxy=[]
-        for page in range(1, 4):
-            start_url = 'http://www.ip3366.net/free/?stype=1&page={}'.format(page)
-            html = get_page(start_url)
-            if html:
-                soup = BeautifulSoup(html, 'lxml')
-                trs=soup.find("div",id="container").find_all("tr")
-                for tr in trs[1:]:
-                    IP = tr.find_all("td")[0].get_text()
-                    PORT = tr.find_all("td")[1].get_text()
-                    TYPE = tr.find_all("td")[3].get_text().lower()
-                    proxy.append([IP,PORT,TYPE])
-        return proxy
-              
-    
     def crawl_kuaidaili(self):
         proxy=[]
         for i in range(1, 4):
@@ -131,3 +110,31 @@ class Crawler(object, metaclass=ProxyMetaclass):
                     iptype =tr.find_all("td")[3].get_text().replace(' ','').replace('\n','').replace('\r','').lower()
                     proxy.append([IP,PORT,iptype])
         return proxy
+    
+    def crawl_ippastebin(self):
+        proxy=[]
+        proxy_=[]
+        start_url='https://pastebin.com/u/spys1'
+        html = get_page(start_url)
+        page_soup = []
+        page_soup.append(BeautifulSoup(html, 'lxml'))
+        for i in page_soup:
+            link = (i.td.a['href'])
+            pastebin_url = 'https://pastebin.com'+link
+            page_s = []
+            r = get_page(pastebin_url)
+            page_s.append(BeautifulSoup(r,'lxml'))
+            for s in page_s:
+                for i in s.find_all('div',class_='de1'):
+                    proxies = i.text
+                    proxy_.append(proxies)
+            for p in proxy_[1:]:
+                proxies = p.rsplit(' ',-1)[0].replace(' ','')
+                IP=proxies.split(':')[0]
+                PORT=proxies.split(':')[1]
+                proxy.append([IP,PORT,'http'])
+        return proxy
+        
+        
+        
+        

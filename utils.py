@@ -52,7 +52,7 @@ def get_user_agent():
 
 
 
-def get_page(url, options={}):
+def get_page(url, proxy=None,options={}):
     """
     抓取代理
     :param url:
@@ -66,7 +66,8 @@ def get_page(url, options={}):
     headers = dict(base_headers, **options)
     print('正在抓取', url)
     try:
-        response = requests.get(url, headers=headers)
+        requests.adapters.DEFAULT_RETRIES = 2  #
+        response = requests.get(url, headers=headers,proxies=proxy)
         print('抓取成功', url, response.status_code)
         if response.status_code == 200:
             return response.content

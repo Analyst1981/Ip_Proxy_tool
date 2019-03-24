@@ -26,6 +26,9 @@ def get_proxy():
 def crawl(url, proxy):
     print(proxy)
     r = requests.get(url,headers=headers, proxies=proxy,verify=False)
+    if response.status_code == 200:
+    print('Successfully')
+    print(response.text)
     return r.text
 
 

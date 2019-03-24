@@ -22,7 +22,7 @@ INITIAL_SCORE = 10
 VALID_STATUS_CODES = [200, 302]
 
 # 代理池数量界限
-POOL_UPPER_THRESHOLD = 2000
+POOL_UPPER_THRESHOLD = 10000
 
 # 检查周期
 TESTER_CYCLE = 20
@@ -30,7 +30,7 @@ TESTER_CYCLE = 20
 GETTER_CYCLE = 300
 
 # 测试API，建议抓哪个网站测哪个
-TEST_URL = 'http://www.whatismyip.com'
+TEST_URL = 'http://www.baidu.com'
 
 # API配置
 API_HOST = '127.0.0.1'
